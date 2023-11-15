@@ -1,8 +1,5 @@
 @tailwind base;
 @tailwind components;
-@font-face {
-  font-family: 'Baloo 2', sans-serif;
-}
 @tailwind utilities;
 
 :root {
@@ -22,4 +19,5 @@
     --base-card: #F3F2F2;
     --background: #FAFAFA;
     --white: #FFFFFF;
+    --baloo: 'Baloo 2', sans-serif;
   }

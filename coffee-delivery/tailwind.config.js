@@ -25,7 +25,7 @@ export default {
         "white": "var(--white)",
       },
       fontFamily: {
-        'baloo': ['Baloo 2', 'sans-serif'],
+        'baloo': "var(--baloo)"
       }
     },
   },
