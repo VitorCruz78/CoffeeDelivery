@@ -11,6 +11,7 @@ import c_latte from '../../assets/Imgs/Type=Latte.png'
 import c_mochaccino from '../../assets/Imgs/Type=Mochaccino.png'
 import c_irlandes from '../../assets/Imgs/Type=Irlandês.png'
 import c_arabe from '../../assets/Imgs/Type=Árabe.png'
+import { Minus, Plus, ShoppingCart } from 'phosphor-react'
 
 interface ICoffeeDetails {
     id: number,
@@ -19,6 +20,7 @@ interface ICoffeeDetails {
     complement: undefined | string | string[],
     title: string,
     description: string,
+    quantity: number,
     price: number
 }
 
@@ -30,8 +32,9 @@ export function CoffeeCard() {
             img: c_americano,
             detail: 'TRADICIONAL',
             complement: undefined,
-            title: 'Expresso TRADICIONAL',
-            description: 'O TRADICIONAL café feito com água quente e grãos moídos',
+            title: 'Expresso Tradicional',
+            description: 'O Tradicional café feito com água quente e grãos moídos',
+            quantity: 0,
             price: 9.90
         },
         {
@@ -40,7 +43,8 @@ export function CoffeeCard() {
             detail: 'TRADICIONAL',
             complement: undefined,
             title: 'Expresso Americano',
-            description: 'Expresso diluído, menos intenso que o TRADICIONAL',
+            description: 'Expresso diluído, menos intenso que o Tradicional',
+            quantity: 0,
             price: 10.90
         },
 
@@ -50,7 +54,8 @@ export function CoffeeCard() {
             detail: 'TRADICIONAL',
             complement: undefined,
             title: 'Expresso Cremoso',
-            description: 'Café expresso TRADICIONAL com espuma cremosa',
+            description: 'Café expresso Tradicional com espuma cremosa',
+            quantity: 0,
             price: 11.90
         },
         {
@@ -60,6 +65,7 @@ export function CoffeeCard() {
             complement: 'GELADO',
             title: 'Expresso Gelado',
             description: 'Bebida preparada com café expresso e cubos de gelo',
+            quantity: 0,
             price: 12.90
         },
         {
@@ -68,7 +74,8 @@ export function CoffeeCard() {
             detail: 'TRADICIONAL',
             complement: 'COM LEITE',
             title: 'Café com Leite',
-            description: 'Meio a meio de expresso tradicional com leite vaporizado',
+            description: 'Meio a meio de expresso Tradicional com leite vaporizado',
+            quantity: 0,
             price: 13.90
         },
         {
@@ -78,6 +85,7 @@ export function CoffeeCard() {
             complement: 'COM LEITE',
             title: 'Latte',
             description: 'Uma dose de café expresso com o dobro de leite e espuma cremosa',
+            quantity: 0,
             price: 14.90
         },
 
@@ -88,6 +96,7 @@ export function CoffeeCard() {
             complement: 'COM LEITE',
             title: 'Capuccino',
             description: 'Bebida com canela feita de doses iguais de café, leite e espuma',
+            quantity: 0,
             price: 15.90
         },
         {
@@ -97,6 +106,7 @@ export function CoffeeCard() {
             complement: 'COM LEITE',
             title: 'Macchiato',
             description: 'Café expresso misturado com um pouco de leite quente e espuma',
+            quantity: 0,
             price: 16.90
         },
         {
@@ -106,6 +116,7 @@ export function CoffeeCard() {
             complement: 'COM LEITE',
             title: 'Mocaccino',
             description: 'Café expresso com calda de chocolate, pouco leite e espuma',
+            quantity: 0,
             price: 17.90
         },
         {
@@ -115,6 +126,7 @@ export function CoffeeCard() {
             complement: 'COM LEITE',
             title: 'Chocolate Quente',
             description: 'Bebida feita com chocolate dissolvido no leite quente e café',
+            quantity: 0,
             price: 18.90
         },
 
@@ -125,6 +137,7 @@ export function CoffeeCard() {
             complement: ['ALCOÓLICO', 'GELADO'],
             title: 'Cubano',
             description: 'Drink gelado de café expresso com rum, creme de leite e hortelã',
+            quantity: 0,
             price: 19.90
         },
         {
@@ -134,6 +147,7 @@ export function CoffeeCard() {
             complement: undefined,
             title: 'Havaino',
             description: 'Bebida adocicada preparada com café e leite de coco',
+            quantity: 0,
             price: 20.90
         },
         {
@@ -143,6 +157,7 @@ export function CoffeeCard() {
             complement: undefined,
             title: 'Árabe',
             description: 'Bebida preparada com grãos de café árabe e especiarias',
+            quantity: 0,
             price: 21.90
         },
         {
@@ -152,19 +167,39 @@ export function CoffeeCard() {
             complement: 'ALCOÓLICO',
             title: 'Irlandês',
             description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
+            quantity: 0,
             price: 22.90
         },
     ]
 
+    // listOfCoffee.filter(item => item.id === id)[0]
+
     return (
-        <>
+        <div className='max-w-[80rem] w-full flex flex-wrap gap-8'>
             {
                 listOfCoffee.map((details: ICoffeeDetails) => {
-                    return <div className="h-[20rem] w-[16rem] bg-red-500 rounded-tr-3xl rounded-bl-3xl">
-                        <p>{details.title}</p>
+                    return <div key={details.id} className="h-[20rem] w-[16rem] bg-base-card rounded-tr-3xl rounded-bl-3xl">
+                        <div className='flex flex-col items-center justify-center gap-2 px-4 py-2'>
+                            <img src={details.img}></img>
+                            <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.detail}</p>
+                            {/* {details.complement} */}
+                            <p className='font-baloo text-base-subtitle text-lg font-semibold'>{details.title}</p>
+                            <p className='text-base-label text-sm text-center'>{details.description}</p>
+                        </div>
+                        <div className='flex items-center justify-center gap-2'>
+                            <p className='bg-base-button text-base-text font-baloo rounded-md text-lg p-2'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(details.price)}</p>
+                            <p className='bg-base-button text-base-text p-2 rounded-md flex items-center justify-center gap-2'>
+                                <span className='hover:cursor-pointer'><Minus size={12} color='#8047F8' />
+                                </span>
+                                0
+                                <span className='hover:cursor-pointer'><Plus size={12} color='#8047F8' />
+                                </span>
+                            </p>
+                            <p className='bg-purple-dark p-2 rounded-md'><span><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
+                        </div>
                     </div>
                 })
             }
-        </>
+        </div >
     )
 }
