@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import c_americano from '../../assets/Imgs/Type=Americano.png'
 import c_milk from '../../assets/Imgs/Type=Café com Leite.png'
 import c_cold from '../../assets/Imgs/Type=Café Gelado.png'
@@ -25,8 +26,7 @@ interface ICoffeeDetails {
 }
 
 export function CoffeeCard() {
-
-    const listOfCoffee = [
+    const [listOfCoffee, setListOfCoffee] = useState<ICoffeeDetails[]>([
         {
             id: 1,
             img: c_americano,
@@ -170,9 +170,23 @@ export function CoffeeCard() {
             quantity: 0,
             price: 22.90
         },
-    ]
+    ])
 
-    // listOfCoffee.filter(item => item.id === id)[0]
+    function handleMinusQuantity(id: number) {
+        setListOfCoffee(prevList =>
+            prevList.map(item =>
+                item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+            )
+        )
+    }
+
+    function handlePlusQuantity(id: number) {
+        setListOfCoffee(prevList =>
+            prevList.map(item =>
+                item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+            )
+        )
+    }
 
     return (
         <div className='max-w-[80rem] w-full flex flex-wrap gap-8'>
@@ -181,18 +195,28 @@ export function CoffeeCard() {
                     return <div key={details.id} className="h-[20rem] w-[16rem] bg-base-card rounded-tr-3xl rounded-bl-3xl">
                         <div className='flex flex-col items-center justify-center gap-2 px-4 py-2'>
                             <img src={details.img}></img>
-                            <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.detail}</p>
-                            {/* {details.complement} */}
+                            <div className='flex items-center justify-center gap-2'>
+                                <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.detail}</p>
+                                {
+                                    typeof (details.complement) === 'object'
+                                        ?
+                                        details.complement.map(item => {
+                                            return <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{item}</p>
+                                        })
+                                        :
+                                        <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.complement}</p>
+                                }
+                            </div>
                             <p className='font-baloo text-base-subtitle text-lg font-semibold'>{details.title}</p>
                             <p className='text-base-label text-sm text-center'>{details.description}</p>
                         </div>
                         <div className='flex items-center justify-center gap-2'>
                             <p className='bg-base-button text-base-text font-baloo rounded-md text-lg p-2'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(details.price)}</p>
                             <p className='bg-base-button text-base-text p-2 rounded-md flex items-center justify-center gap-2'>
-                                <span className='hover:cursor-pointer'><Minus size={12} color='#8047F8' />
+                                <span className='hover:cursor-pointer' onClick={() => handleMinusQuantity(details.id)}><Minus size={12} color='#8047F8' />
                                 </span>
-                                0
-                                <span className='hover:cursor-pointer'><Plus size={12} color='#8047F8' />
+                                <p>{details.quantity}</p>
+                                <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />
                                 </span>
                             </p>
                             <p className='bg-purple-dark p-2 rounded-md'><span><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
