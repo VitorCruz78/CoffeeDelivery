@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import c_americano from '../../assets/Imgs/Type=Americano.png'
 import c_milk from '../../assets/Imgs/Type=Café com Leite.png'
 import c_cold from '../../assets/Imgs/Type=Café Gelado.png'
@@ -13,8 +13,9 @@ import c_mochaccino from '../../assets/Imgs/Type=Mochaccino.png'
 import c_irlandes from '../../assets/Imgs/Type=Irlandês.png'
 import c_arabe from '../../assets/Imgs/Type=Árabe.png'
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
+import { CartContext } from '../../context/CartContext'
 
-interface ICoffeeDetails {
+export interface ICoffeeDetails {
     id: number,
     img: string,
     detail: string,
@@ -26,6 +27,8 @@ interface ICoffeeDetails {
 }
 
 export function CoffeeCard() {
+    const { addToCart } = useContext(CartContext)
+
     const [listOfCoffee, setListOfCoffee] = useState<ICoffeeDetails[]>([
         {
             id: 1,
@@ -219,7 +222,7 @@ export function CoffeeCard() {
                                 <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />
                                 </span>
                             </p>
-                            <p className='bg-purple-dark p-2 rounded-md'><span><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
+                            <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'><span onClick={() => addToCart(details)}><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
                         </div>
                     </div>
                 })
