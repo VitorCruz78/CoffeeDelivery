@@ -1,12 +1,19 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CartProvider } from "./context/CartContext"
 import { Home } from "./pages/Home"
+import { Checkout } from "./pages/Checkout";
 
 function App() {
 
   return (
     <CartProvider>
-      <Home />
-    </CartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Checkout" element={<Checkout />} />
+        </Routes>
+      </BrowserRouter>
+    </CartProvider >
   )
 }
 

@@ -1,5 +1,5 @@
 import { Banner } from "../../components/Banner"
-import { CoffeeCard } from "../../components/CoffeeCard/CoffeeCard"
+import { CoffeeCard } from "../../components/CoffeeCard"
 import { Header } from "../../components/Header"
 
 export function Home() {

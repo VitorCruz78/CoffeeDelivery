@@ -28,6 +28,7 @@ export interface ICoffeeDetails {
 
 export function CoffeeCard() {
     const { addToCart } = useContext(CartContext)
+    // const [addCart, setAddCart] = useState(false) /* Contexto para mini modal */
 
     const [listOfCoffee, setListOfCoffee] = useState<ICoffeeDetails[]>([
         {
@@ -222,7 +223,7 @@ export function CoffeeCard() {
                                 <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />
                                 </span>
                             </p>
-                            <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'><span onClick={() => addToCart(details)}><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
+                            <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'><span onClick={() => { addToCart(details)/*; setAddCart(true)*/ }}><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
                         </div>
                     </div>
                 })

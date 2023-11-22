@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react'
-import { ICoffeeDetails } from '../components/CoffeeCard/CoffeeCard'
+import { ICoffeeDetails } from '../components/CoffeeCard'
 
 interface CartContextType {
     // eslint-disable-next-line no-empty-pattern
