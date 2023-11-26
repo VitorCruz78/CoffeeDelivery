@@ -7,7 +7,7 @@ export function Banner() {
             <div className="flex justify-center items-center">
                 <div className="max-w-[80rem] w-full h-[30rem]">
                     <div className="flex flex-col md:grid md:grid-cols-2 h-full">
-                        <div className="flex flex-col justify-start gap-10 pt-10 md:pt-20">
+                        <div className="flex flex-col justify-start gap-10 pt-10 md:pt-20 px-4 md:px-0">
                             <div className='flex flex-col gap-4'>
                                 <h1 className="text-3xl md:text-5xl tracking-wider text-base-title font-baloo font-bold">Encontre o café perfeito para qualquer hora do dia</h1>
                                 <h2 className="text-md md:text-lg text-base-title">Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</h2>

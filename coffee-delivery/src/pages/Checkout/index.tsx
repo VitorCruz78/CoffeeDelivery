@@ -6,11 +6,15 @@ export function Checkout() {
     return (
         <>
             <Header />
-            <div>
-                <Form />
-            </div>
-            <div>
-                <SelectedCoffees />
+            <div className="flex justify-center items-center">
+                <div className="grid grid-cols-2 max-w-[80rem] w-full">
+                    <div>
+                        <Form />
+                    </div>
+                    <div>
+                        <SelectedCoffees />
+                    </div>
+                </div>
             </div>
         </>
     )
