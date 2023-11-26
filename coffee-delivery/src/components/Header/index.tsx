@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import Logo from '../../assets/Logos/Logo.png'
 import { FaLocationDot } from 'react-icons/fa6'
 import { FaShoppingCart } from 'react-icons/fa'
-import { CartContext } from '../../context/CartContext'
+import { CartContext } from '../../contexts/CartContext'
 
 export function Header() {
     const { getFromCart, items } = useContext(CartContext)

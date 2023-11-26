@@ -13,7 +13,7 @@ import c_mochaccino from '../../assets/Imgs/Type=Mochaccino.png'
 import c_irlandes from '../../assets/Imgs/Type=Irlandês.png'
 import c_arabe from '../../assets/Imgs/Type=Árabe.png'
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
-import { CartContext } from '../../context/CartContext'
+import { CartContext } from '../../contexts/CartContext'
 
 export interface ICoffeeDetails {
     id: number,
@@ -28,7 +28,7 @@ export interface ICoffeeDetails {
 
 export function CoffeeCard() {
     const { addToCart } = useContext(CartContext)
-    // const [addCart, setAddCart] = useState(false) /* Contexto para mini modal */
+    const [modalAddCart, setModalAddCart] = useState(false)
 
     const [listOfCoffee, setListOfCoffee] = useState<ICoffeeDetails[]>([
         {
@@ -192,42 +192,63 @@ export function CoffeeCard() {
         )
     }
 
+    function handleModalAddCart() {
+        setModalAddCart(true)
+
+        setTimeout(() => {
+            setModalAddCart(false)
+        }, 2500);
+    }
+
     return (
-        <div className='max-w-[80rem] w-full flex flex-wrap gap-8'>
+        <>
             {
-                listOfCoffee.map((details: ICoffeeDetails) => {
-                    return <div key={details.id} className="h-[20rem] w-[16rem] bg-base-card rounded-tr-3xl rounded-bl-3xl">
-                        <div className='flex flex-col items-center justify-center gap-2 px-4 py-2'>
-                            <img src={details.img}></img>
-                            <div className='flex items-center justify-center gap-2'>
-                                <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.detail}</p>
-                                {
-                                    typeof (details.complement) === 'object'
-                                        ?
-                                        details.complement.map(item => {
-                                            return <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{item}</p>
-                                        })
-                                        :
-                                        <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.complement}</p>
-                                }
-                            </div>
-                            <p className='font-baloo text-base-subtitle text-lg font-semibold'>{details.title}</p>
-                            <p className='text-base-label text-sm text-center'>{details.description}</p>
-                        </div>
-                        <div className='flex items-center justify-center gap-2'>
-                            <p className='bg-base-button text-base-text font-baloo rounded-md text-lg p-2'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(details.price)}</p>
-                            <p className='bg-base-button text-base-text p-2 rounded-md flex items-center justify-center gap-2'>
-                                <span className='hover:cursor-pointer' onClick={() => handleMinusQuantity(details.id)}><Minus size={12} color='#8047F8' />
-                                </span>
-                                <p>{details.quantity}</p>
-                                <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />
-                                </span>
-                            </p>
-                            <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'><span onClick={() => { addToCart(details)/*; setAddCart(true)*/ }}><ShoppingCart size={20} weight='fill' color='#FFF' /></span></p>
-                        </div>
-                    </div>
-                })
+                modalAddCart
+                &&
+                <div className='fixed top-5 right-5 overflow-auto z-[1]'>
+                    <p className='bg-green-400 p-4 rounded-md text-white font-baloo'>Adicionado ao carrinho!</p>
+                </div>
             }
-        </div >
+            <div className='max-w-[80rem] w-full flex flex-wrap gap-8'>
+                {
+                    listOfCoffee.map((details: ICoffeeDetails) => {
+                        return <div key={details.id} className="h-[20rem] w-[16rem] bg-base-card rounded-tr-3xl rounded-bl-3xl">
+                            <div className='flex flex-col items-center justify-center gap-2 px-4 py-2'>
+                                <img src={details.img}></img>
+                                <div className='flex items-center justify-center gap-2'>
+                                    <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.detail}</p>
+                                    {
+                                        typeof (details.complement) === 'object'
+                                            ?
+                                            details.complement.map(item => {
+                                                return <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{item}</p>
+                                            })
+                                            :
+                                            <p className='text-yellow-dark bg-yellow-light text-xs p-1 rounded-lg font-semibold'>{details.complement}</p>
+                                    }
+                                </div>
+                                <p className='font-baloo text-base-subtitle text-lg font-semibold'>{details.title}</p>
+                                <p className='text-base-label text-sm text-center'>{details.description}</p>
+                            </div>
+                            <div className='flex items-center justify-center gap-2'>
+                                <p className='bg-base-button text-base-text font-baloo rounded-md text-lg p-2'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(details.price)}</p>
+                                <p className='bg-base-button text-base-text p-2 rounded-md flex items-center justify-center gap-2'>
+                                    <span className='hover:cursor-pointer' onClick={() => handleMinusQuantity(details.id)}><Minus size={12} color='#8047F8' />
+                                    </span>
+                                    <p>{details.quantity}</p>
+                                    <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />
+                                    </span>
+                                </p>
+                                <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'>
+                                    <span onClick={() => { addToCart(details); handleModalAddCart() }}>
+                                        <ShoppingCart size={20} weight='fill' color='#FFF' />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    })
+                }
+            </div>
+        </>
     )
 }
