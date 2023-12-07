@@ -1,4 +1,8 @@
+// import { useEffect, useContext, useState } from "react"
+// import { CartContext } from "../../contexts/CartContext"
+
 export function SelectedCoffees() {
+
     return (
         <div className="flex flex-col justify-end items-end pt-20">
             <div className="max-w-[30rem] w-full h-[30rem]">

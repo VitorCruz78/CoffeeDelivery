@@ -3,32 +3,46 @@ import { FaCreditCard } from "react-icons/fa";
 import { PiBankFill } from "react-icons/pi";
 import { IconType } from 'react-icons'
 import { FaMoneyBill } from "react-icons/fa6";
+import { useContext, useEffect, useState } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 interface IPaymentCondition {
     id: number
-    icon: IconType
+    Icon: IconType
     text: string
 }
 
 export function Form() {
 
+    const { getFromCart, items } = useContext(CartContext)
+    const [selectedPaymentCondition, setSelectedPaymentCondition] = useState<number>()
     const paymentCondition: IPaymentCondition[] = [
         {
             id: 1,
-            icon: FaCreditCard,
+            Icon: FaCreditCard,
             text: 'Cartão de crédito'
         },
         {
-            id: 1,
-            icon: PiBankFill,
+            id: 2,
+            Icon: PiBankFill,
             text: 'Cartão de débito'
         },
         {
             id: 3,
-            icon: FaMoneyBill,
+            Icon: FaMoneyBill,
             text: 'Dinheiro'
         }
     ]
+
+    useEffect(() => {
+        getFromCart()
+    }, [getFromCart, items])
+    console.log(items)
+
+    function handlePaymentCondition(id: number) {
+        setSelectedPaymentCondition(id)
+    }
+
     return (
         <>
             <div className="flex flex-col justify-start items-start pt-20">
@@ -58,7 +72,8 @@ export function Form() {
                             <div className="flex items-center gap-3 mt-6">
                                 {
                                     paymentCondition.map(items => {
-                                        return <p key={items.id} className="flex items-center gap-3 bg-base-input rounded-md p-3"><span><{items.icon} /></span>{items.text}</p>
+                                        const { Icon } = items
+                                        return <p key={items.id} onClick={() => handlePaymentCondition(items.id)} className={`hover:cursor-pointer flex items-center gap-3 bg-base-input rounded-md p-3 uppercase text-sm ${selectedPaymentCondition === items.id && 'border border-purple-dark'}`}><span><Icon color="#4B2995" /></span>{items.text}</p>
                                     })
                                 }
                             </div>

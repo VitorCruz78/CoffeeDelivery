@@ -1,10 +1,9 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useState, useEffect } from 'react'
 import { ICoffeeDetails } from '../components/CoffeeCard'
 
 interface CartContextType {
     // eslint-disable-next-line no-empty-pattern
     addToCart: ({ }) => void
-    getFromCart: () => void
     items: string
 }
 
@@ -15,23 +14,23 @@ interface ChildrenProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartProvider({ children }: ChildrenProps) {
-    const [keyStorage, setKeyStorage] = useState<string>('')
-    const [items, setItems] = useState<string | null>()
+    const dataRequests = [] as ICoffeeDetails[]
+    const [data, setData] = useState<ICoffeeDetails[]>([])
+
+    useEffect(() => {
+        if (data.length > 0) {
+            localStorage.setItem("cdelivery", JSON.stringify(data))
+        }
+    }, [data])
 
     function addToCart(value: ICoffeeDetails) {
-        localStorage.setItem(value.title, JSON.stringify(value))
+        dataRequests.push(value)
 
-        setKeyStorage(value.title)
-    }
-
-    function getFromCart() {
-        const itemsLocal = localStorage.getItem(keyStorage)
-
-        setItems(itemsLocal)
+        setData(state => [...state, ...dataRequests])
     }
 
     return (
-        <CartContext.Provider value={{ addToCart, getFromCart, items } as CartContextType}>
+        <CartContext.Provider value={{ addToCart } as CartContextType}>
             {children}
         </CartContext.Provider>
     )
