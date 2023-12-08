@@ -2,9 +2,8 @@ import { ReactNode, createContext, useState, useEffect } from 'react'
 import { ICoffeeDetails } from '../components/CoffeeCard'
 
 interface CartContextType {
-    // eslint-disable-next-line no-empty-pattern
     addToCart: ({ }) => void
-    totalRequests: string | null
+    totalRequests: ICoffeeDetails[]
 }
 
 interface ChildrenProps {
@@ -16,7 +15,7 @@ export const CartContext = createContext({} as CartContextType)
 export function CartProvider({ children }: ChildrenProps) {
     const dataRequests = [] as ICoffeeDetails[]
     const [data, setData] = useState<ICoffeeDetails[]>([])
-    const [totalRequests, setTotalRequests] = useState<string | null>('')
+    const [totalRequests, setTotalRequests] = useState<ICoffeeDetails[]>()
 
     useEffect(() => {
         if (data.length > 0) {

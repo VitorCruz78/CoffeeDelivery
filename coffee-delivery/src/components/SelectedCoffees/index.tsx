@@ -1,9 +1,9 @@
 import { useContext } from "react"
 import { CartContext } from "../../contexts/CartContext"
+import { ICoffeeDetails } from "../CoffeeCard"
 
 export function SelectedCoffees() {
     const { totalRequests } = useContext(CartContext)
-    console.log('aqui', totalRequests)
 
     return (
         <div className="flex flex-col justify-end items-end pt-20">
@@ -11,7 +11,17 @@ export function SelectedCoffees() {
                 <p className="font-baloo font-semibold text-xl text-base-title">Cafés selecionados</p>
                 <div className="bg-background h-full rounded-md border-2 border-red-500 mr-10">
                     <div className="px-14 py-10">
-
+                        {
+                            totalRequests
+                            &&
+                            totalRequests.map((items: ICoffeeDetails) => {
+                                return <>
+                                    <div>
+                                        {items.title}
+                                    </div>
+                                </>
+                            })
+                        }
                     </div>
                 </div>
             </div>
