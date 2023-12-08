@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
     </CartProvider >

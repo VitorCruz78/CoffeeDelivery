@@ -1,7 +1,9 @@
-// import { useEffect, useContext, useState } from "react"
-// import { CartContext } from "../../contexts/CartContext"
+import { useContext } from "react"
+import { CartContext } from "../../contexts/CartContext"
 
 export function SelectedCoffees() {
+    const { totalRequests } = useContext(CartContext)
+    console.log('aqui', totalRequests)
 
     return (
         <div className="flex flex-col justify-end items-end pt-20">

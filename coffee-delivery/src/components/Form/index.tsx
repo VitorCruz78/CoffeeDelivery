@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { CurrencyDollarSimple, MapPinLine } from "phosphor-react";
 import { FaCreditCard } from "react-icons/fa";
 import { PiBankFill } from "react-icons/pi";
 import { IconType } from 'react-icons'
 import { FaMoneyBill } from "react-icons/fa6";
-import { useContext, useEffect, useState } from "react";
-import { CartContext } from "../../contexts/CartContext";
 
 interface IPaymentCondition {
     id: number
@@ -14,7 +13,6 @@ interface IPaymentCondition {
 
 export function Form() {
 
-    const { getFromCart, items } = useContext(CartContext)
     const [selectedPaymentCondition, setSelectedPaymentCondition] = useState<number>()
     const paymentCondition: IPaymentCondition[] = [
         {
@@ -33,11 +31,6 @@ export function Form() {
             text: 'Dinheiro'
         }
     ]
-
-    useEffect(() => {
-        getFromCart()
-    }, [getFromCart, items])
-    console.log(items)
 
     function handlePaymentCondition(id: number) {
         setSelectedPaymentCondition(id)
