@@ -40,7 +40,7 @@ export function Form() {
         <>
             <div className="flex flex-col justify-start items-start pt-20">
                 <div className="max-w-[60rem] w-full h-[30rem]">
-                    <p className="font-baloo font-semibold text-xl text-base-title">Complete seu pedido</p>
+                    <p className="font-baloo font-semibold text-xl text-base-title mb-4">Complete seu pedido</p>
                     <div className="bg-base-card h-full rounded-md">
                         <div className="px-14 py-10">
                             <p><span className="flex items-center gap-2 text-base-title text-lg"><MapPinLine size={20} weight="regular" color="#C47F17" />Endereço de entrega</span></p>
