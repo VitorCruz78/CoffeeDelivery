@@ -177,12 +177,14 @@ export function CoffeeCard() {
         },
     ])
 
-    function handleMinusQuantity(id: number) {
-        setListOfCoffee(prevList =>
-            prevList.map(item =>
-                item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+    function handleMinusQuantity(value: ICoffeeDetails) {
+        if (value.quantity > 0) {
+            setListOfCoffee(prevList =>
+                prevList.map(item =>
+                    item.id === value.id ? { ...item, quantity: item.quantity - 1 } : item
+                )
             )
-        )
+        }
     }
 
     function handlePlusQuantity(id: number) {
@@ -232,7 +234,7 @@ export function CoffeeCard() {
                             <div className='flex items-center justify-center gap-2'>
                                 <p className='bg-base-button text-base-text font-baloo rounded-md text-lg p-2'>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(details.price)}</p>
                                 <p className='bg-base-button text-base-text p-2 rounded-md flex items-center justify-center gap-2'>
-                                    <span className='hover:cursor-pointer' onClick={() => handleMinusQuantity(details.id)}><Minus size={12} color='#8047F8' />
+                                    <span className='hover:cursor-pointer' onClick={() => handleMinusQuantity(details)}><Minus size={12} color='#8047F8' />
                                     </span>
                                     <p>{details.quantity}</p>
                                     <span className='hover:cursor-pointer' onClick={() => handlePlusQuantity(details.id)}><Plus size={12} color='#8047F8' />

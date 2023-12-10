@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState, useEffect } from 'react'
+import { ReactNode, createContext, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { ICoffeeDetails } from '../components/CoffeeCard'
 
 interface CartContextType {
@@ -8,6 +8,7 @@ interface CartContextType {
     showCheckout: (show: boolean) => void
     showCart: boolean
     totalRequests: ICoffeeDetails[]
+    setTotalRequests: Dispatch<SetStateAction<ICoffeeDetails[] | []>>
 }
 
 export interface ChildrenProps {
@@ -44,7 +45,7 @@ export function CartProvider({ children }: ChildrenProps) {
     }
 
     return (
-        <CartContext.Provider value={{ addToCart, getRequests, showCheckout, showCart, totalRequests } as CartContextType}>
+        <CartContext.Provider value={{ addToCart, getRequests, showCheckout, showCart, totalRequests, setTotalRequests } as CartContextType}>
             {children}
         </CartContext.Provider>
     )
