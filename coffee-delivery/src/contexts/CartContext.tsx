@@ -10,7 +10,7 @@ interface CartContextType {
     totalRequests: ICoffeeDetails[]
 }
 
-interface ChildrenProps {
+export interface ChildrenProps {
     children: ReactNode
 }
 

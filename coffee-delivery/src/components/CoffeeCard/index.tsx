@@ -14,6 +14,7 @@ import c_irlandes from '../../assets/Imgs/Type=Irlandês.png'
 import c_arabe from '../../assets/Imgs/Type=Árabe.png'
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
 import { CartContext } from '../../contexts/CartContext'
+import { AlertContext } from '../../contexts/AlertContext'
 
 export interface ICoffeeDetails {
     id: number,
@@ -28,7 +29,7 @@ export interface ICoffeeDetails {
 
 export function CoffeeCard() {
     const { addToCart } = useContext(CartContext)
-    const [modalAddCart, setModalAddCart] = useState(false)
+    const { setTitle, setStatus, setShow } = useContext(AlertContext)
 
     const [listOfCoffee, setListOfCoffee] = useState<ICoffeeDetails[]>([
         {
@@ -192,23 +193,21 @@ export function CoffeeCard() {
         )
     }
 
-    function handleModalAddCart() {
-        setModalAddCart(true)
-
-        setTimeout(() => {
-            setModalAddCart(false)
-        }, 2500);
+    function handleModalAddCart(value: ICoffeeDetails) {
+        if (value.quantity > 0) {
+            addToCart(value)
+            setTitle('Adicionado ao carrinho!')
+            setStatus('success')
+            setShow(true)
+        } else {
+            setTitle('Selecione no mínimo uma quantidade')
+            setStatus('error')
+            setShow(true)
+        }
     }
 
     return (
         <>
-            {
-                modalAddCart
-                &&
-                <div className='fixed top-5 right-5 overflow-auto z-[1]'>
-                    <p className='bg-green-400 p-4 rounded-md text-white font-baloo'>Adicionado ao carrinho!</p>
-                </div>
-            }
             <div className='max-w-[80rem] w-full flex flex-wrap gap-8'>
                 {
                     listOfCoffee.map((details: ICoffeeDetails) => {
@@ -240,7 +239,7 @@ export function CoffeeCard() {
                                     </span>
                                 </p>
                                 <p className='bg-purple-dark p-2 rounded-md hover:cursor-pointer'>
-                                    <span onClick={() => { addToCart(details); handleModalAddCart() }}>
+                                    <span onClick={() => { handleModalAddCart(details) }}>
                                         <ShoppingCart size={20} weight='fill' color='#FFF' />
                                     </span>
                                 </p>

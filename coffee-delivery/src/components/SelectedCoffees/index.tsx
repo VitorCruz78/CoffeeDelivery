@@ -2,6 +2,7 @@ import { useContext } from "react"
 import { CartContext } from "../../contexts/CartContext"
 import { ICoffeeDetails } from "../CoffeeCard"
 import { Minus, Plus, Trash } from "phosphor-react"
+import '../../styles/globals.css'
 
 export function SelectedCoffees() {
     const { totalRequests } = useContext(CartContext)
@@ -10,7 +11,7 @@ export function SelectedCoffees() {
         <div className='flex flex-col justify-center items-center md:justify-end md:items-end pt-20'>
             <div className="max-w-[30rem] w-full h-[30rem]">
                 <p className="font-baloo font-semibold text-xl text-base-title">Cafés selecionados</p>
-                <div className={`flex flex-col justify-start mt-5 gap-4 bg-background h-full rounded-md mr-10`}>
+                <div className={`flex flex-col justify-start mt-5 gap-4 bg-background h-full rounded-md mr-10 ${totalRequests?.length > 4 && 'overflow-auto'}`}>
                     {
                         totalRequests
                             ?
