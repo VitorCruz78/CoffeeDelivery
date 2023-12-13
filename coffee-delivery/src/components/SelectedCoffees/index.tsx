@@ -5,7 +5,7 @@ import { Minus, Plus, Trash } from "phosphor-react"
 import '../../styles/globals.css'
 
 export function SelectedCoffees() {
-    const { totalRequests, setTotalRequests } = useContext(CartContext)
+    const { totalRequests, setTotalRequests, getRequests } = useContext(CartContext)
     const [totalPrice, setTotalPrice] = useState<number>(0)
 
     useEffect(() => {
@@ -32,8 +32,15 @@ export function SelectedCoffees() {
         )
     }
 
-    function handleRemoveCoffee(id: number) {
-        setTotalRequests(prev => prev.filter(item => item.id !== id))
+    async function handleRemoveCoffee(id: number) {
+        const newTotalRequests = totalRequests.filter(item => item.id !== id)
+
+        localStorage.removeItem('cdelivery')
+        localStorage.setItem('cdelivery', JSON.stringify(newTotalRequests))
+        getRequests()
+
+        setTotalRequests(state => [...state])
+        //verificar pq não atualiza em último set
     }
 
     return (
