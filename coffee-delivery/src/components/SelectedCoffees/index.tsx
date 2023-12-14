@@ -32,15 +32,12 @@ export function SelectedCoffees() {
         )
     }
 
-    async function handleRemoveCoffee(id: number) {
+    function handleRemoveCoffee(id: number) {
         const newTotalRequests = totalRequests.filter(item => item.id !== id)
 
         localStorage.removeItem('cdelivery')
         localStorage.setItem('cdelivery', JSON.stringify(newTotalRequests))
         getRequests()
-
-        setTotalRequests(state => [...state])
-        //verificar pq não atualiza em último set
     }
 
     return (
@@ -49,7 +46,7 @@ export function SelectedCoffees() {
                 <p className="font-baloo font-semibold text-xl text-base-title">Cafés selecionados</p>
                 <div className={`flex flex-col justify-start mt-5 gap-4 bg-background h-full rounded-md mr-10 ${totalRequests?.length >= 4 && 'overflow-auto'}`}>
                     {
-                        totalRequests
+                        totalRequests?.length > 0
                             ?
                             <>
                                 {
