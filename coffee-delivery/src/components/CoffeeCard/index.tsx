@@ -197,8 +197,12 @@ export function CoffeeCard() {
 
     function handleModalAddCart(value: ICoffeeDetails) {
         const arrayIdProduct = []
-        const productDuplicate = totalRequests.filter(item => item.id === value.id)
-        arrayIdProduct.push(productDuplicate[0]?.id)
+
+        if (totalRequests) {
+            const productDuplicate = totalRequests.filter(item => item.id === value.id)
+
+            arrayIdProduct.push(productDuplicate[0]?.id)
+        }
 
         if (value.quantity > 0 && !arrayIdProduct.includes(value.id)) {
             addToCart(value)
@@ -216,7 +220,6 @@ export function CoffeeCard() {
             setShow(true)
         }
     }
-    //verificar que ao voltar componente após excluir, deve ser tudo completamente limpo.
 
     return (
         <>

@@ -8,11 +8,11 @@ export function Checkout() {
 
     return (
         <>
-            <div className="m-auto max-w-[80rem] mt-5">
+            <div className="m-auto max-w-[80rem] mt-5 px-4 md:px-0">
                 <button onClick={() => showCheckout(false)} className="bg-purple text-white text-center rounded-md p-2">Voltar</button>
             </div>
             <div className="flex justify-center items-center">
-                <div className="flex flex-col gap-36 md:gap-0 md:grid md:grid-cols-2 max-w-[80rem] w-full">
+                <div className="flex flex-col justify-start items-start px-4 md:px-0 gap-36 md:gap-0 md:grid md:grid-cols-2 max-w-[80rem] w-full">
                     <div>
                         <Form />
                     </div>
