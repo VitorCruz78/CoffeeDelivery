@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { ICoffeeDetails } from '../components/CoffeeCard'
+import { Loader } from '../components/Loader'
 
 interface CartContextType {
     // eslint-disable-next-line no-empty-pattern
@@ -9,6 +10,7 @@ interface CartContextType {
     showCart: boolean
     totalRequests: ICoffeeDetails[]
     setTotalRequests: Dispatch<SetStateAction<ICoffeeDetails[] | []>>
+    setData: Dispatch<SetStateAction<ICoffeeDetails[] | []>>
 }
 
 export interface ChildrenProps {
@@ -18,6 +20,7 @@ export interface ChildrenProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartProvider({ children }: ChildrenProps) {
+    const [loading, setLoading] = useState<boolean>(false)
     const [data, setData] = useState<ICoffeeDetails[]>([])
     const [totalRequests, setTotalRequests] = useState<ICoffeeDetails[]>([])
     const [showCart, setShowCart] = useState<boolean>()
@@ -38,15 +41,25 @@ export function CartProvider({ children }: ChildrenProps) {
         const allRequests = localStorage.getItem("cdelivery")
 
         setTotalRequests(JSON.parse(allRequests as string))
+        setLoading(false)
     }
 
     function showCheckout(show: boolean) {
         setShowCart(show)
+
+        if (!show) {
+            setLoading(true)
+            getRequests()
+        }
     }
 
     return (
-        <CartContext.Provider value={{ addToCart, getRequests, showCheckout, showCart, totalRequests, setTotalRequests } as CartContextType}>
-            {children}
-        </CartContext.Provider>
+        loading
+            ?
+            <Loader />
+            :
+            <CartContext.Provider value={{ addToCart, getRequests, showCheckout, showCart, totalRequests, setTotalRequests, setData } as CartContextType}>
+                {children}
+            </CartContext.Provider>
     )
 }
